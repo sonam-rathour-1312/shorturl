@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Url Shortener</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .card {
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            background-color: rgb(219, 215, 213);
+            border-radius: 5px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            padding: 30px;
+        }
+
+        #content {
+            background-color: rgb(213, 216, 219);
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            margin-top: 20px;
+        }
+
+        #id_long_url {
+            width: 500px;
+            height: 50px;
+            border: none;
+        }
+
+        @media only screen and(max-width: 600px) {
+            #id_long_url{
+                width:inherit;
+            }
+        }
+
+        .btn {
+            width: 100px;
+            height: 35px;
+            margin-left: -20px;
+            margin-top: 9px;
+            border: none;
+            border-radius: 3px;
+        }
+
+        .btn:hover, .btn:focus {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-hearder text-center py-3">
+        <h1>Url Shortener <i class="fas fa-link px-2"></i></h1>
+    </div>
+    <div class="center">
+        <div class="card mt-5">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row g-1">
+                    <div class="col-md-10">{{form.long_url}}</div>
+                    <div class="col-2">
+                        <button class="btn btn-success btn-lg w-100" type="submit">Shorten</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if errors %}
+        <div class="alert alert-danger mt-4" role="alert">
+            <p>{{errors}}</p>
+        </div>
+        {% endif %}
+
+        {% if new_url %}
+        <div class="mx-auto text-center mt-5" id="content">
+            <h2 class="text-danger" style="text-align: center;">Your Shortened Url</h2>
+            <p>You can copy the link below and share it with your friends</p>
+            <p class="">{{new_url}}</p>
+            <p><span class="text-danger">Previous URL:</span>{{long_url}}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
